@@ -13,6 +13,6 @@ PR 생성 확인!
 ### CI/CD -> Github Action
 
 ### github tutorial
-Learn Git Branching[https://learngitbranching.js.org/?locale=ko]
+[Learn Git Branching](https://learngitbranching.js.org/?locale=ko)
 위 사이트를 통해 깃허브 작동 방식과 함께 명령어를 익힐 수 있습니다!
 
