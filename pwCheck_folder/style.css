@@ -1,0 +1,6 @@
+body { background-color: #1a1a1a; color: white; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+.secure-box { background: #2d2d2d; padding: 30px; border-radius: 15px; border: 1px solid #00ff41; width: 350px; text-align: center; }
+input { width: 90%; padding: 10px; margin-bottom: 15px; border-radius: 5px; border: none; }
+#strengthBar { height: 10px; background: #444; margin-bottom: 10px; transition: 0.5s; border-radius: 5px; }
+ul { text-align: left; font-size: 0.9em; list-style: none; padding: 0; }
+.valid { color: #00ff41; } /* 보안 통과 시 초록색 */

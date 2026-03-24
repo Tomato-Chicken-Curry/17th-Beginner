@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>보안 강화: 비밀번호 검사기</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="secure-box">
+        <h2>🔒 Password Checker</h2>
+        <input type="password" id="pwInput" placeholder="비밀번호를 입력하세요">
+        <div id="strengthBar"></div>
+        <p id="msg">보안 등급을 측정합니다.</p>
+        <ul id="criteria">
+            <li id="len">8자 이상</li>
+            <li id="num">숫자 포함</li>
+            <li id="special">특수문자 포함</li>
+        </ul>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
