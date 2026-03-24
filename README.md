@@ -1,6 +1,7 @@
 # 17th-Beginner
 ### assignment
-1. branch 생성 => branch name: 본인 이름 or github 이름
+1. git clone해서 로컬에 레포지토리 생성
+2. branch 생성 => branch name: 본인 이름 or github 이름
 3. 생성한 branch에서 폴더 생성(프로젝트명) 후 바이브 코딩으로 프론트만으로 동작하는 웹페이지 코드 작성
 4. commit 실행 (커밋 메시지 포함)
 5. push 후 PR(pull request) 요청
