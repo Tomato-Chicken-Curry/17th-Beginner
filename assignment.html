@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나의 데일리 보드</title>
+    <style>
+        :root {
+            --primary-color: #6c5ce7;
+            --bg-color: #f0f2f5;
+        }
+
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background-color: var(--bg-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h2 { text-align: center; color: #333; }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        input {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        input:focus { border-color: var(--primary-color); }
+
+        button#add-btn {
+            padding: 10px 15px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        ul { list-style: none; padding: 0; }
+
+        li {
+            background: #fff;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 5px;
+        }
+
+        .delete-btn {
+            background: #ff7675;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>✅ 오늘 할 일</h2>
+    <div class="input-group">
+        <input type="text" id="todo-input" placeholder="할 일을 입력하세요...">
+        <button id="add-btn">추가</button>
+    </div>
+    <ul id="todo-list"></ul>
+</div>
+
+<script>
+    const input = document.getElementById('todo-input');
+    const addBtn = document.getElementById('add-btn');
+    const todoList = document.getElementById('todo-list');
+
+    // 1. 초기 로드 시 저장된 데이터 불러오기
+    document.addEventListener('DOMContentLoaded', getTodos);
+
+    // 2. 추가 버튼 클릭 이벤트
+    addBtn.addEventListener('click', () => {
+        if (input.value === '') return;
+        addTodo(input.value);
+        saveLocal(input.value);
+        input.value = '';
+    });
+
+    // 화면에 리스트 추가하는 함수
+    function addTodo(text) {
+        const li = document.createElement('li');
+        li.innerHTML = `
+            <span>${text}</span>
+            <button class="delete-btn">삭제</button>
+        `;
+        
+        li.querySelector('.delete-btn').addEventListener('click', (e) => {
+            li.remove();
+            removeLocal(text);
+        });
+
+        todoList.appendChild(li);
+    }
+
+    // 3. LocalStorage 저장 (서버 대신 브라우저 저장소 활용)
+    function saveLocal(todo) {
+        let todos = localStorage.getItem('todos') ? JSON.parse(localStorage.getItem('todos')) : [];
+        todos.push(todo);
+        localStorage.setItem('todos', JSON.stringify(todos));
+    }
+
+    function getTodos() {
+        let todos = localStorage.getItem('todos') ? JSON.parse(localStorage.getItem('todos')) : [];
+        todos.forEach(todo => addTodo(todo));
+    }
+
+    function removeLocal(todo) {
+        let todos = JSON.parse(localStorage.getItem('todos'));
+        const index = todos.indexOf(todo);
+        todos.splice(index, 1);
+        localStorage.setItem('todos', JSON.stringify(todos));
+    }
+</script>
+
+</body>
+</html>
