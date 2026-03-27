@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mood Quote</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: "Arial", sans-serif;
+      background: linear-gradient(135deg, #fdfbfb, #ebedee);
+      transition: background 0.4s ease;
+      padding: 20px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 560px;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(8px);
+      border-radius: 24px;
+      padding: 36px 28px;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 32px;
+      color: #222;
+    }
+
+    .subtitle {
+      margin: 0 0 28px;
+      color: #666;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .mood-section {
+      margin-bottom: 24px;
+    }
+
+    .mood-buttons {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .mood-btn {
+      border: none;
+      border-radius: 16px;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .mood-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    }
+
+    .happy { background: #ffe599; }
+    .calm { background: #c9f0d1; }
+    .sad { background: #cfe2ff; }
+    .tired { background: #ead7ff; }
+
+    .quote-btn {
+      margin-top: 20px;
+      border: none;
+      background: #222;
+      color: white;
+      padding: 14px 22px;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.15s ease, opacity 0.15s ease;
+    }
+
+    .quote-btn:hover {
+      transform: scale(1.03);
+      opacity: 0.94;
+    }
+
+    .result-box {
+      margin-top: 28px;
+      background: #f8f9ff;
+      border-radius: 20px;
+      padding: 24px;
+      min-height: 180px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 14px;
+    }
+
+    .mood-text {
+      font-size: 17px;
+      font-weight: bold;
+      color: #555;
+    }
+
+    .quote-text {
+      font-size: 22px;
+      line-height: 1.7;
+      color: #222;
+      font-weight: 500;
+    }
+
+    .footer {
+      margin-top: 18px;
+      color: #888;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>How are you today?</h1>
+    <p class="subtitle">
+      오늘의 기분을 선택하고,<br />
+      랜덤 명언으로 하루를 시작해보세요.
+    </p>
+
+    <div class="mood-section">
+      <div class="mood-buttons">
+        <button class="mood-btn happy" onclick="setMood('행복해요 😊', 'linear-gradient(135deg, #fff1b8, #fff9db)')">행복 😊</button>
+        <button class="mood-btn calm" onclick="setMood('평온해요 😌', 'linear-gradient(135deg, #d8f3dc, #f1faee)')">평온 😌</button>
+        <button class="mood-btn sad" onclick="setMood('조금 우울해요 😢', 'linear-gradient(135deg, #dbeafe, #eff6ff)')">우울 😢</button>
+        <button class="mood-btn tired" onclick="setMood('많이 지쳤어요 😴', 'linear-gradient(135deg, #eadcff, #f6f0ff)')">피곤 😴</button>
+      </div>
+    </div>
+
+    <button class="quote-btn" onclick="showQuote()">랜덤 명언 보기</button>
+
+    <div class="result-box">
+      <div class="mood-text" id="moodText">아직 기분을 선택하지 않았어요.</div>
+      <div class="quote-text" id="quoteText">버튼을 눌러 오늘의 메시지를 받아보세요.</div>
+    </div>
+
+    <div class="footer">Mood Quote Project</div>
+  </div>
+
+  <script>
+    let currentMood = "";
+
+    const quotes = [
+      "오늘의 속도로 가도 괜찮아요.",
+      "작은 진전도 분명한 진전입니다.",
+      "쉬어가는 것도 성장의 일부예요.",
+      "완벽하지 않아도 충분히 아름다워요.",
+      "지금까지 온 것만으로도 정말 잘하고 있어요.",
+      "천천히 가도 멈추지 않으면 괜찮아요.",
+      "당신의 하루에는 분명 좋은 순간이 숨어 있어요.",
+      "오늘의 나를 조금 더 다정하게 대해주세요."
+    ];
+
+    function setMood(mood, background) {
+      currentMood = mood;
+      document.getElementById("moodText").innerText = "선택한 기분: " + mood;
+      document.body.style.background = background;
+    }
+
+    function showQuote() {
+      const randomIndex = Math.floor(Math.random() * quotes.length);
+      const randomQuote = quotes[randomIndex];
+
+      if (currentMood === "") {
+        document.getElementById("moodText").innerText = "기분을 먼저 선택해보세요 🙂";
+      }
+
+      document.getElementById("quoteText").innerText = randomQuote;
+    }
+  </script>
+</body>
+</html>
